@@ -1,0 +1,87 @@
+#!/bin/sh
+
+CFLAGS="$CFLAGS \
+    -I/usr/include/libxml2 \
+    -DWITH_PCRE_STUDY -DMODSEC_PCRE_MATCH_LIMIT=1500 -DMODSEC_PCRE_MATCH_LIMIT_RECURSION=1500 \
+    -DWITH_YAJL -I/usr/include/yajl"
+
+
+CORE_LIBS="$CORE_LIBS \
+    -lxml2 \
+    -lpcre \
+    -lyajl  \
+    -lGeoIP \
+    -lsqlite3"
+
+ngx_addon_name=ngx_http_modsec_module
+
+modsec_inc="$ngx_addon_dir/acmp.h \
+             $ngx_addon_dir/config.h \
+             $ngx_addon_dir/modsecurity.h \
+             $ngx_addon_dir/msc_config.h \
+             $ngx_addon_dir/msc_crypt.h \
+             $ngx_addon_dir/msc_geo.h \
+             $ngx_addon_dir/msc_gsb.h \
+             $ngx_addon_dir/msc_http_var.h \
+             $ngx_addon_dir/msc_json.h \
+             $ngx_addon_dir/msc_log.h \
+             $ngx_addon_dir/msc_multipart.h \
+             $ngx_addon_dir/msc_parsers.h \
+             $ngx_addon_dir/msc_pcre.h \
+             $ngx_addon_dir/msc_tree.h \
+             $ngx_addon_dir/msc_unicode.h \
+             $ngx_addon_dir/msc_util.h \
+             $ngx_addon_dir/msc_xml.h \
+             $ngx_addon_dir/nginx_io.h \
+             $ngx_addon_dir/persist_sqlite.h \
+             $ngx_addon_dir/re.h \
+             $ngx_addon_dir/utf8tables.h \
+             $ngx_addon_dir/kvstore/compiler.h \
+             $ngx_addon_dir/kvstore/kvstore.h \
+             $ngx_addon_dir/kvstore/list.h \
+             $ngx_addon_dir/kvstore/vbuf.h \
+             $ngx_addon_dir/libinjection/libinjection.h \
+             $ngx_addon_dir/libinjection/libinjection_html5.h \
+             $ngx_addon_dir/libinjection/libinjection_sqli.h \
+             $ngx_addon_dir/libinjection/libinjection_sqli_data.h \
+             $ngx_addon_dir/libinjection/libinjection_xss.h"
+
+modsec_src="$ngx_addon_dir/mod_security_nginx.c \
+             $ngx_addon_dir/acmp.c \
+             $ngx_addon_dir/config.c \
+             $ngx_addon_dir/modsecurity.c \
+             $ngx_addon_dir/msc_config.c \
+             $ngx_addon_dir/msc_crypt.c \
+             $ngx_addon_dir/msc_geo.c \
+             $ngx_addon_dir/msc_gsb.c \
+             $ngx_addon_dir/msc_http_var.c \
+             $ngx_addon_dir/msc_json.c \
+             $ngx_addon_dir/msc_log.c \
+             $ngx_addon_dir/msc_multipart.c \
+             $ngx_addon_dir/msc_parsers.c \
+             $ngx_addon_dir/msc_pcre.c \
+             $ngx_addon_dir/msc_reqbody.c \
+             $ngx_addon_dir/msc_tree.c \
+             $ngx_addon_dir/msc_unicode.c \
+             $ngx_addon_dir/msc_util.c \
+             $ngx_addon_dir/msc_xml.c \
+             $ngx_addon_dir/nginx_io.c \
+             $ngx_addon_dir/persist_sqlite.c \
+             $ngx_addon_dir/re.c \
+             $ngx_addon_dir/re_actions.c \
+             $ngx_addon_dir/re_operators.c \
+             $ngx_addon_dir/re_tfns.c \
+             $ngx_addon_dir/re_variables.c \
+             $ngx_addon_dir/kvstore/vbuf.c \
+             $ngx_addon_dir/kvstore/kvstore.c \
+             $ngx_addon_dir/libinjection/libinjection_html5.c \
+             $ngx_addon_dir/libinjection/libinjection_sqli.c \
+             $ngx_addon_dir/libinjection/libinjection_xss.c"
+
+CORE_INCS="$CORE_INCS $ngx_addon_dir"
+CORE_DEPS="$CORE_DEPS $modsec_inc"
+
+HTTP_AUX_FILTER_MODULES="ngx_http_modsec_module $HTTP_AUX_FILTER_MODULES"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $modsec_src"
+
+

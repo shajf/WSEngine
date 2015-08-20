@@ -1,0 +1,3 @@
+./configure --with-http_modsec\
+            --add-module=RuleEngine
+

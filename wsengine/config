@@ -1,0 +1,9 @@
+ngx_addon_name=wsengine_module
+
+CORE_INCS="$CORE_INCS $ngx_addon_dir"
+CORE_DEPS="$CORE_DEPS $ngx_addon_dir/wsengine.h"
+
+HTTP_AUX_FILTER_MODULES="wsengine_module $HTTP_AUX_FILTER_MODULES"
+NGX_ADDON_SRCS="$NGX_ADDON_SRCS $ngx_addon_dir/wsengine.c $ngx_addon_dir/config.c"
+
+
