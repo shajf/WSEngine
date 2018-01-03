@@ -2,7 +2,6 @@
  * @file
  * @brief 编译器相关宏定义
  *
- * @author Zhixu Liu <liuzhixu@intra.nsfocus.com>
  */
 #ifndef _COMPILER_H_
 #define _COMPILER_H_
